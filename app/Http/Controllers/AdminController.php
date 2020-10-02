@@ -38,9 +38,9 @@ class AdminController extends Controller
         ]);
 
         //$this->authorize('create', Post::class);
-        $inputs['slug'] = str_replace(' ', '-', request('title'));
+        $inputs['slug'] = strtolower(str_replace(' ', '-', request('title'))) ;
         $inputs['likes'] = 499;
-        
+
 
         auth()->user()->posts()->create($inputs);
 

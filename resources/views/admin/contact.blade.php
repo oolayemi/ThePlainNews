@@ -14,7 +14,7 @@
             </div>
 
             <div class="row">
-                <div class="col-12 col-lg-8">
+                <div class="col-12 col-lg-12">
                     <div class="contact-form-area">
                         <form action="{{route('post.store')}}" method="post">
                             @csrf
@@ -42,7 +42,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-lg-4">
+                {{--<div class="col-12 col-lg-4">
                     <!-- Single Contact Information -->
                     <div class="single-contact-information mb-30">
                         <h6>Address:</h6>
@@ -58,7 +58,7 @@
                         <h6>Email:</h6>
                         <p>yourmail@gmail.com</p>
                     </div>
-                </div>
+                </div>--}}
             </div>
 
             {{--<!-- Google Maps -->

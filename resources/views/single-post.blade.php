@@ -63,7 +63,7 @@
                                 <a href="{{route('post.show', $post->id-1)}}" class="active"><i class="fa fa-angle-left"></i> previous</a>
                             </div>
                             <div class="next">
-                                <a href="{{route('post.show', $post->id+1)}}">Next <i class="fa fa-angle-right"></i></a>
+                                <a href="{{route('post.show', $post->id)}}">Next <i class="fa fa-angle-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -80,7 +80,7 @@
                         <div class="col mb-50">
                             <div class="comment_area clearfix">
                                 @if(count($post->comments) == 1)
-                                    <h5 class="title">1 Comments</h5>
+                                    <h5 class="title">1 Comment</h5>
                                 @else
                                     <h5 class="title">{{count($post->comments)}} Comments</h5>
                                 @endif
@@ -96,28 +96,12 @@
                                                     </div>
                                                     <!-- Comment Meta -->
                                                     <div class="comment-meta">
-                                                        <a href="#" class="post-author">{{$comment->name}}</a>
-                                                        <a href="#" class="post-date">{{$comment->created_at->diffForHumans()}}</a>
+                                                        <p class="post-author">{{$comment->name}}</p>
+                                                        <p class="post-date">{{$comment->created_at->diffForHumans()}}</p>
                                                         <p>{{$comment->message}}</p>
                                                     </div>
                                                 </div>
-                                                {{--<ol class="children">
-                                                    <li class="single_comment_area">
-                                                        <!-- Comment Content -->
-                                                        <div class="comment-content d-flex">
-                                                            <!-- Comment Author -->
-                                                            <div class="comment-author">
-                                                                <img src="img/bg-img/31.jpg" alt="author">
-                                                            </div>
-                                                            <!-- Comment Meta -->
-                                                            <div class="comment-meta">
-                                                                <a href="#" class="post-author">Sandy Doe</a>
-                                                                <a href="#" class="post-date">April 15, 2018</a>
-                                                                <p>Donec turpis erat, scelerisque id euismod sit amet, fermentum vel dolor. Nulla facilisi. Sed pellen tesque lectus et accu msan aliquam. Fusce lobortis cursus quam, id mattis sapien.</p>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ol>--}}
+
                                             </li>
                                     @endforeach
 
@@ -146,7 +130,7 @@
 
                                 <!-- Reply Form -->
                                 <div class="contact-form-area">
-                                    <form action="/posts/{{ $post->id }}/comments" method="post">
+                                    <form action="/posts/{{ $post->slug }}/comments" method="post">
                                         @csrf
                                         <div class="row">
                                             <div class="col-12 col-lg-6">
@@ -211,7 +195,7 @@
 
                             <!-- Latest Posts Widget -->
                             <div class="latest-posts-widget mb-50">
-                                <div class="single-blog-post small-featured-post d-flex">
+                                {{--<div class="single-blog-post small-featured-post d-flex">
                                     <div class="post-thumb">
                                         @if($post->id % 2 == 0)
                                             <a href="#"><img src="{{asset('img/bg-img/31.jpg')}}" alt=""></a>
@@ -229,31 +213,54 @@
                                             <p class="post-date"><span>{{$post->created_at->diffForHumans()}}</span> | <span>April 14</span></p>
                                         </div>
                                     </div>
-                                </div>
+                                </div>--}}
 
+                                <?php $i=0 ?>
+                                    @foreach($posts->sortBy('created_at') as $post)
+                                        <!-- Single Featured Post -->
+                                        <div class="single-blog-post small-featured-post d-flex">
+                                            <div class="post-thumb">
+                                            @if($post->id % 2 == 0)
+                                                <img src="{{asset('img/bg-img/31.jpg')}}" alt="">
+                                            @else
+                                                <img src="{{asset('img/bg-img/32.jpg')}}" alt="">
+                                            @endif
 
-                            @foreach($posts as $post)
+                                            </div>
+                                            <div class="post-data">
+                                            <a href="#" class="post-catagory">{{$post->category}}</a>
+                                            <div class="post-meta">
+                                                <a href="#" class="post-title">
+                                                    <h6>{{$post->title}}</h6>
+                                                </a>
+                                                <p class="post-date"><span>{{$post->created_at->diffForHumans()}}</span> | <span>{{$post->created_at->format('M d')}}</span></p>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+
+                            {{--@foreach($posts as $post)
                                 <!-- Single Featured Post -->
-                                <div class="single-blog-post small-featured-post d-flex">
-                                    <div class="post-thumb">
-                                    @if($post->id % 2 == 0)
-                                        <a href="#"><img src="{{asset('img/bg-img/31.jpg')}}" alt=""></a>
-                                    @else
-                                        <a href="#"><img src="{{asset('img/bg-img/32.jpg')}}" alt=""></a>
-                                    @endif
+                                    <div class="single-blog-post small-featured-post d-flex">
+                                        <div class="post-thumb">
+                                            @if($post->id % 2 == 0)
+                                                <a href="#"><img src="{{asset('img/bg-img/31.jpg')}}" alt=""></a>
+                                            @else
+                                                <a href="#"><img src="{{asset('img/bg-img/32.jpg')}}" alt=""></a>
+                                            @endif
 
+                                        </div>
+                                        <div class="post-data">
+                                            <a href="#" class="post-catagory">{{$post->category}}</a>
+                                            <div class="post-meta">
+                                                <a href="#" class="post-title">
+                                                    <h6>{{$post->title}}</h6>
+                                                </a>
+                                                <p class="post-date"><span>{{$post->created_at->diffForHumans()}}</span> | <span>April 14</span></p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="post-data">
-                                    <a href="#" class="post-catagory">{{$post->category}}</a>
-                                    <div class="post-meta">
-                                        <a href="#" class="post-title">
-                                            <h6>{{$post->title}}</h6>
-                                        </a>
-                                        <p class="post-date"><span>{{$post->created_at->diffForHumans()}}</span> | <span>April 14</span></p>
-                                    </div>
-                                    </div>
-                                </div>
-                            @endforeach
+                            @endforeach--}}
 
                             <!-- Popular News Widget -->
                             <div class="popular-news-widget mb-50">

@@ -20,7 +20,7 @@
                             </a>
                             <div class="post-meta">
                                 <p class="post-author">By  <a href="#"> {{$post->user->name}}</a></p>
-                                <p class="post-excerp">{{$post->content}}</p>
+                                <p class="post-excerp"> {{Str::limit($post->content, '520', '....')}}</p>
                                 <!-- Post Like & Post Comment -->
                                 <div class="d-flex align-items-center">
                                     <a href="#" class="post-like"><img src="{{asset('img/core-img/like.png')}}" alt=""> <span>{{$post->likes}}</span></a>

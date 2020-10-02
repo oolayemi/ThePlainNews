@@ -16,6 +16,10 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function related(){
+        return $this->hasOne(Related::class);
+    }
+
     public function user(){
         return $this->belongsTo(User::class);
     }
@@ -23,5 +27,13 @@ class Post extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    public function next(){
+        return $this->next();
+    }
+
+    public function prev(){
+        return $this->prev();
     }
 }
